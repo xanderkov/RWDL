@@ -5,3 +5,4 @@ tensorflow-cpu
 matplotlib
 keras
 pyTelegramBotAPI
+yadisk
