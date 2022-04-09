@@ -1,0 +1,7 @@
+numpy
+Pillow
+opencv-contrib-python-headless
+tensorflow-cpu
+matplotlib
+keras
+pyTelegramBotAPI
