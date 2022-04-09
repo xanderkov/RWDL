@@ -9,4 +9,4 @@ WORKDIR /root/docker
 
 COPY . /root/docker
 
-CMD ["python", "bot.py"] 
+CMD ["python", "src/bot.py"] 

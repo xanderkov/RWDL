@@ -1,5 +1,5 @@
 import yadisk
-from constants import YANDEX_TOKEN
+from src.constants import YANDEX_TOKEN
 
 def upload():
     y = yadisk.YaDisk(token=YANDEX_TOKEN)

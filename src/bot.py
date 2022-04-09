@@ -1,6 +1,6 @@
 import telebot
-import loadImage
-import constants
+import loadImage as loadImage
+import constants as constants
 
 bot = telebot.TeleBot(constants.TOKEN)
 @bot.message_handler(commands=["start"])
