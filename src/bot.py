@@ -22,7 +22,7 @@ def getPhoto(message):
             loadImage.delWatermark()
             bot.send_photo(chat_id=message.chat.id, photo=open('mnt/img/photo.jpeg', 'rb'))
         except:
-            bot.reply_to(message, "This photo is too high resolution for me.s")
+            bot.reply_to(message, "This photo is too high resolution for me")
         
     except Exception as e:
         bot.reply_to(message, e)

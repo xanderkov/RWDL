@@ -7,6 +7,7 @@ from tensorflow.keras.layers import BatchNormalization, Conv2D, MaxPooling2D, In
 import matplotlib.pyplot as plt
 from keras.preprocessing.image import save_img
 import PIL
+from cv2 import dnn_superres
 
 H = 128
 W = 128
@@ -73,8 +74,15 @@ def delWatermarkFormImage(width, height, name):
     res = modelAutoEncoder.predict(img)
     modelAutoEncoder.evaluate(img, res)
     src = 'mnt/img/' + name
-    resized_arr = cv2.resize(res[0], (width, height))
-    save_img(src, cv2.cvtColor(resized_arr, cv2.COLOR_BGR2RGB))
+    sr = dnn_superres.DnnSuperResImpl_create()
+    path = './weights/EDSR_x3.pb'
+    sr.readModel(path)
+    sr.setModel("edsr", 3)
+    
+    save_img(src, cv2.cvtColor(res[0], cv2.COLOR_BGR2RGB))
+    image = cv2.imread(src)
+    result = sr.upsample(image)
+    cv2.imwrite(src, result)
 
 def delWatermark():
     originalImage = PIL.Image.open('mnt/img/' + 'photo.jpeg')
@@ -84,31 +92,4 @@ def delWatermark():
     
 
 if __name__ == '__main__':
-    width = 128
-    height = 128
-    files = ['mnt/testImages/' + 'WatermarkTestImage.png']
-    print(files)
-    img = createPixelArr(files, width, height)
-    img = img / 255
-    plt.figure(figsize=(5,5))
-    for i in range(1):
-        plt.subplot(1, 1, i+1)
-        plt.xticks([])
-        plt.yticks([])
-        plt.grid(False)
-        plt.imshow(cv2.cvtColor(img[i].astype('float32'), cv2.COLOR_BGR2RGB))
-    plt.show()
-    modelAutoEncoder = baseAutoencoder(width, height)
-    modelAutoEncoder.load_weights('./weights/128.h5')
-    res = modelAutoEncoder.predict(img)
-    modelAutoEncoder.evaluate(img, res)
-    plt.figure(figsize=(5, 5))
-    
-    for i in range(1):
-        plt.subplot(1,1,i+1)
-        plt.xticks([])
-        plt.yticks([])
-        plt.grid(False)
-        plt.imshow(cv2.cvtColor(res[i], cv2.COLOR_BGR2RGB))
-    plt.show()
     delWatermark()

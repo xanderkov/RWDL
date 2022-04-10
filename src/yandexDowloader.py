@@ -9,5 +9,8 @@ def upload():
 def download():
     y = yadisk.YaDisk(token=YANDEX_TOKEN)
     y.download("Database/wm-nowm.zip", "Database/wm-nowm.zip")
+    from zipfile import ZipFile
+    with ZipFile('Database/wm-nowm.zip', 'r') as zipObj:
+        zipObj.extractall()
 
 y = yadisk.YaDisk(token=YANDEX_TOKEN)
