@@ -132,3 +132,4 @@ dmypy.json
 constants.py
 Database
 wm-nowm
+vgg16/vgg16.npy
